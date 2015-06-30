@@ -1,0 +1,67 @@
+
+import Dao.*;
+import Domain.*;
+import Exception.ConnectionException;
+import Exception.PersistenceException;
+import java.sql.Date;
+import java.sql.Time;
+import org.junit.After;
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+/**
+ *
+ * @author 09100308
+ */
+public class Teste {
+
+    private Usuario user;
+    private TipoUsuario tipoUsuario;
+   
+
+    public Teste() {
+    }
+    @Test
+    public void testeCadastroUsuario() throws ConnectionException, PersistenceException {
+        tipoUsuario = new TipoUsuario();
+        tipoUsuario.setId(1);
+        user = new Usuario(0, "Usuario de teste", "12345678911", "email@teste.com", tipoUsuario);
+
+        DAOUsuario u = new DAOUsuario();
+        u.insert(user);
+        assertTrue(true);
+
+    }
+
+    @Test
+    public void testeCadastroLeilao() throws ConnectionException, PersistenceException {
+        tipoUsuario = new TipoUsuario();
+        tipoUsuario.setId(1);
+        user = new Usuario(0, "Usuario", "123456789122", "email", tipoUsuario);
+        DAOUsuario u = new DAOUsuario();
+        u.insert(user);
+        
+        
+        FormaLance fl = new FormaLance();
+        Lote lote = new Lote();
+        Natureza nat = new Natureza();
+        fl.setId(1);
+        lote.setId(1);
+        nat.setId(1);       
+        
+        java.sql.Date dataI = new Date(2015, 06, 29);
+        java.sql.Date dataF = new Date(2015, 07, 15);
+        java.sql.Time hI = new Time(11,0,0);
+        java.sql.Time hF = new Time(12,0,0);
+        
+        Leilao l = new Leilao(0, user, fl, lote, nat, dataI,dataF ,hI, hF);
+        DAOLeilao dl = new DAOLeilao();
+        dl.insert(l);
+        assertTrue(true);
+
+    }
+
+}
